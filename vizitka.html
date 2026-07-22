@@ -5,44 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vizitka Yarat - TAGIOFFICIAL</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
-.form-box { max-width: 600px; margin: 60px auto; padding: 40px; background: #fff; border: 1.5px solid #111; }
-.form-box h1 { font-size: 40px; font-weight: 900; margin-bottom: 10px; }
-.form-box p { opacity: 0.6; margin-bottom: 30px; }
-input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1.5px solid #111; font-size: 14px; }
-button.submit { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 800; cursor: pointer; margin-top: 10px; }
-.preview { margin-top: 30px; padding: 25px; border: 1.5px dashed #111; background: #f2f2f0; }
+.wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.left { padding: 40px; border-right: 1.5px solid #111; }
+.left h1 { font-size: 42px; font-weight: 900; }
+.left p { opacity: 0.6; margin: 10px 0 30px 0; }
+input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1.5px solid #111; font-family: inherit; }
+.btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 800; cursor: pointer; margin-top: 10px; }
+.right { padding: 40px; background: #e9e9e6; display: flex; align-items: center; justify-content: center; }
+.card-preview { width: 360px; background: #fff; border: 1.5px solid #111; padding: 30px; }
+.card-preview h2 { font-size: 28px; font-weight: 900; }
+.card-preview h4 { font-size: 12px; opacity: 0.5; letter-spacing: 1px; margin-top: 5px; }
+.info { margin-top: 30px; border-top: 1.5px solid #111; padding-top: 20px; }
+.info p { font-size: 13px; margin: 6px 0; }
+#qrcode { margin-top: 25px; display: flex; justify-content: center; padding: 15px; background: #fff; border: 1.5px solid #111; }
+@media(max-width: 900px){ .wrap { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<nav><div class="logo"><a href="index.html" style="text-decoration:none;color:#111">TAGIOFFICIAL</a></div></nav>
-
-<div class="form-box">
-  <h1>VİZİTKANI YARAT</h1>
-  <p>Melumatlarini yaz, canli preview gor.</p>
-  <input id="name" placeholder="Ad Soyad - Mes: Tagi Huseynov">
-  <input id="job" placeholder="Vezife - Mes: Memar">
-  <input id="phone" placeholder="Nomre - Mes: +994 50 123 45 67">
-  <input id="insta" placeholder="Instagram - Mes: tagiofficial">
-  <button class="submit">Vizitkani Yarat →</button>
-
-  <div class="preview" id="preview">
-    <h3 id="p-name">Ad Soyad</h3>
-    <p id="p-job">Vezife</p>
-    <p id="p-phone" style="margin-top:15px;font-size:13px"></p>
-    <p id="p-insta" style="font-size:13px"></p>
-  </div>
+<nav style="padding:15px 40px;border-bottom:1.5px solid #111"><a href="index.html" style="text-decoration:none;color:#111;font-weight:900">← TAGIOFFICIAL</a></nav>
+<div class="wrap">
+<div class="left">
+<h1>VİZİTKANI YARAT</h1>
+<p>Canlı preview sağda.</p>
+<input id="name" placeholder="Ad Soyad">
+<input id="job" placeholder="Vezife / Sirket">
+<input id="phone" placeholder="Telefon">
+<input id="link" placeholder="Instagram / Sayt linki">
+<button class="btn" onclick="generate()">QR KODU YARAT →</button>
+<p style="font-size:11px;margin-top:15px;opacity:0.5">V2 - Local sistem. Melumatlar brauzerde saxlanir.</p>
 </div>
-
+<div class="right">
+<div class="card-preview" id="card">
+<h2 id="p-name">Ad Soyad</h2>
+<h4 id="p-job">VEZIFE</h4>
+<div class="info">
+<p id="p-phone">+994 __ ___ __ __</p>
+<p id="p-link">@tagiofficial</p>
+</div>
+<div id="qrcode"></div>
+</div>
+</div>
+</div>
 <script>
-const name = document.getElementById('name');
-const job = document.getElementById('job');
-const phone = document.getElementById('phone');
-const insta = document.getElementById('insta');
-name.addEventListener('input', () => document.getElementById('p-name').innerText = name.value || 'Ad Soyad');
-job.addEventListener('input', () => document.getElementById('p-job').innerText = job.value || 'Vezife');
-phone.addEventListener('input', () => document.getElementById('p-phone').innerText = phone.value);
-insta.addEventListener('input', () => document.getElementById('p-insta').innerText = insta.value ? '@' + insta.value : '');
+let qr;
+const $ = id => document.getElementById(id);
+$('name').addEventListener('input', e => $('p-name').innerText = e.target.value || 'Ad Soyad');
+$('job').addEventListener('input', e => $('p-job').innerText = (e.target.value || 'VEZIFE').toUpperCase());
+$('phone').addEventListener('input', e => $('p-phone').innerText = e.target.value || '+994 __ ___ __ __');
+$('link').addEventListener('input', e => $('p-link').innerText = e.target.value || '@tagiofficial');
+function generate(){
+  const data = `${$('name').value} | ${$('job').value} | ${$('phone').value} | ${$('link').value}`;
+  document.getElementById('qrcode').innerHTML = '';
+  qr = new QRCode(document.getElementById('qrcode'), { text: data || 'TAGIOFFICIAL', width: 160, height: 160 });
+  localStorage.setItem('tagi_card', JSON.stringify({name:$('name').value, job:$('job').value, phone:$('phone').value, link:$('link').value}));
+  alert('Vizitka yarandi ve yadda saxlandi!');
+}
+window.onload = () => {
+  const saved = JSON.parse(localStorage.getItem('tagi_card')||'{}');
+  if(saved.name){ $('name').value=saved.name; $('job').value=saved.job; $('phone').value=saved.phone; $('link').value=saved.link;
+  $('p-name').innerText=saved.name; $('p-job').innerText=saved.job; $('p-phone').innerText=saved.phone; $('p-link').innerText=saved.link; }
+}
 </script>
 </body>
 </html>
