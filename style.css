@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', Arial, sans-serif; background: #f2f2f0; color: #111; }
+
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 40px; border-bottom: 1.5px solid #111;
+  position: sticky; top: 0; background: #f2f2f0; z-index: 10;
+}
+.logo { font-weight: 900; font-size: 20px; letter-spacing: -0.5px; }
+.menu { display: flex; gap: 28px; align-items: center; }
+.menu a { text-decoration: none; color: #111; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
+.btn-small { border: 1.5px solid #111; padding: 9px 18px; border-radius: 30px; transition: 0.2s; }
+.btn-small:hover { background: #111; color: #fff; }
+
+.hero { padding: 70px 40px 60px 40px; }
+.hero h1 { 
+  font-size: 72px; font-weight: 900; 
+  line-height: 0.88; letter-spacing: -2.5px; 
+  text-transform: uppercase;
+}
+.hero h1 span { color: #8a8a8a; display: block; }
+.hero p { margin-top: 25px; color: #666; max-width: 420px; line-height: 1.6; font-size: 15px; }
+.hero-buttons { margin-top: 35px; display: flex; gap: 15px; }
+.btn-black { background: #111; color: #fff; border: 1.5px solid #111; padding: 15px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; font-size: 14px; }
+.btn-white { background: transparent; color: #111; border: 1.5px solid #111; padding: 15px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; font-size: 14px; }
+.btn-black:hover { background: #000; }
+.btn-white:hover { background: #111; color: #fff; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5px; background: #111; border-top: 1.5px solid #111; border-bottom: 1.5px solid #111; }
+.card { background: #f2f2f0; padding: 35px 35px 45px 35px; min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
+.card.dark { background: #111; color: #fff; }
+.card.active { background: #fff; }
+.card h2 { font-size: 13px; opacity: 0.4; font-weight: 700; }
+.card h3 { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+.card p { font-size: 14px; opacity: 0.65; line-height: 1.5; margin-top: 12px; }
+
+footer { padding: 35px 40px; font-size: 11px; opacity: 0.4; text-align: center; letter-spacing: 1px; text-transform: uppercase; }
+
+@media (max-width: 768px) {
+  nav { padding: 18px 20px; }
+  .hero { padding: 40px 20px; }
+  .hero h1 { font-size: 42px; }
+  .cards { grid-template-columns: 1fr; }
+  .menu { gap: 15px; }
+  .menu a:not(.btn-small) { display: none; }
+}

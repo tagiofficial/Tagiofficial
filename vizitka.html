@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vizitka Yarat - TAGIOFFICIAL</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.form-box { max-width: 600px; margin: 60px auto; padding: 40px; background: #fff; border: 1.5px solid #111; }
+.form-box h1 { font-size: 40px; font-weight: 900; margin-bottom: 10px; }
+.form-box p { opacity: 0.6; margin-bottom: 30px; }
+input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1.5px solid #111; font-size: 14px; }
+button.submit { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 800; cursor: pointer; margin-top: 10px; }
+.preview { margin-top: 30px; padding: 25px; border: 1.5px dashed #111; background: #f2f2f0; }
+</style>
+</head>
+<body>
+<nav><div class="logo"><a href="index.html" style="text-decoration:none;color:#111">TAGIOFFICIAL</a></div></nav>
+
+<div class="form-box">
+  <h1>VİZİTKANI YARAT</h1>
+  <p>Melumatlarini yaz, canli preview gor.</p>
+  <input id="name" placeholder="Ad Soyad - Mes: Tagi Huseynov">
+  <input id="job" placeholder="Vezife - Mes: Memar">
+  <input id="phone" placeholder="Nomre - Mes: +994 50 123 45 67">
+  <input id="insta" placeholder="Instagram - Mes: tagiofficial">
+  <button class="submit">Vizitkani Yarat →</button>
+
+  <div class="preview" id="preview">
+    <h3 id="p-name">Ad Soyad</h3>
+    <p id="p-job">Vezife</p>
+    <p id="p-phone" style="margin-top:15px;font-size:13px"></p>
+    <p id="p-insta" style="font-size:13px"></p>
+  </div>
+</div>
+
+<script>
+const name = document.getElementById('name');
+const job = document.getElementById('job');
+const phone = document.getElementById('phone');
+const insta = document.getElementById('insta');
+name.addEventListener('input', () => document.getElementById('p-name').innerText = name.value || 'Ad Soyad');
+job.addEventListener('input', () => document.getElementById('p-job').innerText = job.value || 'Vezife');
+phone.addEventListener('input', () => document.getElementById('p-phone').innerText = phone.value);
+insta.addEventListener('input', () => document.getElementById('p-insta').innerText = insta.value ? '@' + insta.value : '');
+</script>
+</body>
+</html>
